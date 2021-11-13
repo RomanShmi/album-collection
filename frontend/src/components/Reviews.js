@@ -8,7 +8,7 @@ export default {
 export function DisplayReviews(data) {
     return `<ol>
     ${data.map(review => {
-        return `<li>${review.reviewContent}</li>`;
+        return `<li>${review.reviewContent}________${review.name}</li>`;
     }).join('')}
     </ol>`
 }

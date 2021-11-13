@@ -1,6 +1,6 @@
 import * as CONSTANTS from "./constants";
 import apiActions from "../api/api-actions";
-
+import Album from "../components/album";
 export default {
     DisplayAlbums
 }
@@ -8,7 +8,8 @@ export default {
 export function DisplayAlbums(data) {
     return `<ol>
     ${data.map(album => {
-        return `<li>${album.title}</li>`;
+        return `<li> ${Album.DisplayAlbum(album)}</li>`; 
+
     }).join('')}
     </ol>`
 }

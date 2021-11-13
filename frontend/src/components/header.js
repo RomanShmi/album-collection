@@ -4,6 +4,7 @@ import Songs from "../components/Songs";
 import Reviews from "../components/Reviews";
 import * as CONSTANTS from "../components/constants";
 import apiActions from "../api/api-actions";
+import album from"../components/album";
 
 export default {
    SetupNavBar,
@@ -27,10 +28,20 @@ export function SetupHeaderEventListeners(){
     SetupSongs();
     SetupAlbums();
    SetupReviews();
-   // SetupHome();
+    SetupHome();
+
+  
+
+
 }
 
-
+function SetupHome(){
+   const btnHome = document.getElementById("navHome");
+   btnHome.addEventListener("click", function(){
+       CONSTANTS.Title.innerText = "Home";
+       CONSTANTS.Content.innerHTML = "<p>Welcome back home...</p>";
+   });
+}
 
 
 
@@ -68,6 +79,14 @@ function SetupArtists(){
         "click", () => {
         apiActions.getRequest(CONSTANTS.albumURL, data => {
          CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data);
+        
+        
+        
+        
+        
+        
+        
+        
          // Artists.SetupAddArtist();
         })}
       );
