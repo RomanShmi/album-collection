@@ -9,7 +9,7 @@ export default {
 export function SetupNavBar(){
    return`
    <ul>
-      <li id="navHome>Home</li>
+      <li id="navHome">Home</li>
       <li id="navArtists">Artists</li>
       <li id="navSongs">Songs</li>
       <li id="navAlbums">Albums</li>
@@ -20,10 +20,10 @@ export function SetupNavBar(){
 
 export function SetupHeaderEventListeners(){
    SetupArtists();
-   SetupSongs();
-   SetupAlbums();
-   SetupReviews();
-   SetupHome();
+   // SetupSongs();
+   // SetupAlbums();
+   // SetupReviews();
+   // SetupHome();
 }
 
 

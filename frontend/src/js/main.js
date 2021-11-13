@@ -10,16 +10,16 @@ export default() => {
 }
 
 function SetupHeader(){
-   headerElement.innerHTML = H.SetupNavBar();
-   H.SetupHeaderEventListeners();
+   headerElement.innerHTML = header.SetupNavBar();
+   header.SetupHeaderEventListeners();
 }
 
 function SetupHome(){
-   CONSTANTS.Title.innerText = "Welcome";
-   CONSTANTS.Content.innerHTML = "<p>Fink Ployd's Music Collection & Review Site</p>";
+   // CONSTANTS.Title.innerText = "Welcome";
+   // CONSTANTS.Content.innerHTML = "<p>Fink Ployd's Music Collection & Review Site</p>";
 }
 
 function SetupFooter(){
-   footerElement.innerHTML = F.SetupNavBar();
-   F.SetupFooterEventListeners();
+   // footerElement.innerHTML = F.SetupNavBar();
+   // F.SetupFooterEventListeners();
 }

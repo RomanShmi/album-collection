@@ -9,12 +9,14 @@ export default {
 //callback is the api call function
 function getRequest(location, callback) {
     fetch(location)
-    .then(response => response.json())
-    .then(data => {
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
         callback(data);
-    })
-    .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
 }
+
 //requestBody come from frontend form
 function postRequest(location, requestBody, callback) {
     fetch(`${location}`, {
