@@ -1,6 +1,10 @@
 import Artists from "../components/Artists";
+import Albums from "../components/Albums";
+import Songs from "../components/Songs";
+import Reviews from "../components/Reviews";
 import * as CONSTANTS from "../components/constants";
 import apiActions from "../api/api-actions";
+
 export default {
    SetupNavBar,
    SetupHeaderEventListeners
@@ -20,9 +24,9 @@ export function SetupNavBar(){
 
 export function SetupHeaderEventListeners(){
    SetupArtists();
-   // SetupSongs();
-   // SetupAlbums();
-   // SetupReviews();
+    SetupSongs();
+    SetupAlbums();
+   SetupReviews();
    // SetupHome();
 }
 
@@ -40,21 +44,47 @@ function SetupArtists(){
      })}
    );
       
-      
+   }    
 
-};
 
-// function SetupSongs(){
 
-// };
+ function SetupSongs(){
+   
+      const buttonSongs = document.getElementById("navSongs");
+      buttonSongs.addEventListener(
+        "click", () => {
+        apiActions.getRequest(CONSTANTS.songURL, data => {
+         CONSTANTS.Content.innerHTML = Songs.DisplaySongs(data);
+         // Artists.SetupAddArtist();
+        })}
+      );
+ }
 
-// function SetupAlbums(){
 
-// };
+ function SetupAlbums(){
+  
+      const buttonAlbums = document.getElementById("navAlbums");
+      buttonAlbums.addEventListener(
+        "click", () => {
+        apiActions.getRequest(CONSTANTS.albumURL, data => {
+         CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data);
+         // Artists.SetupAddArtist();
+        })}
+      );
+ }
 
-// function SetupReviews(){
+ function SetupReviews(){
+  
+ const buttonReviews = document.getElementById("navReviews");
+      buttonReviews.addEventListener(
+        "click", () => {
+        apiActions.getRequest(CONSTANTS.reviewURL, data => {
+         CONSTANTS.Content.innerHTML = Reviews.DisplayReviews(data);
+         // Artists.SetupAddArtist();
+        })}
+      );
+ }
 
-// };
 
 // function SetupHome(){
 
