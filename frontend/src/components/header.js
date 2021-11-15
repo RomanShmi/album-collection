@@ -4,7 +4,7 @@ import Songs from "../components/Songs";
 import Reviews from "../components/Reviews";
 import * as CONSTANTS from "../components/constants";
 import apiActions from "../api/api-actions";
-import album from"../components/album";
+import Album from"../components/album";
 
 export default {
    SetupNavBar,
@@ -51,7 +51,9 @@ function SetupArtists(){
      "click", () => {
      apiActions.getRequest(CONSTANTS.artistURL, data => {
       CONSTANTS.Content.innerHTML = Artists.DisplayArtists(data);
-      // Artists.SetupAddArtist();
+     //Album.EditAlbum();
+     // Album.SetupSaveButton();
+
      })}
    );
       
@@ -79,7 +81,7 @@ function SetupArtists(){
         "click", () => {
         apiActions.getRequest(CONSTANTS.albumURL, data => {
          CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data);
-        
+         Albums.SetupEditButton();
         
         
         

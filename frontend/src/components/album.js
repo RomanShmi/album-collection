@@ -6,21 +6,24 @@ var Album = null;
 export default {
     DisplayAlbum,
     EditAlbum,
-    SetupEditButton
+    SetupSaveButton
+
 }
 
 function DisplayAlbum(album){
-    console.log(album);
-    Album = album;
+    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+   // Album = album;
     if(album.reviews == null){
         album.reviews = [];
     }
-    
+ 
     return `
         <h3>${album.title}</h3>
         <button id="btnEditAlbum">Edit</button>
+        <button id="btnDeleteAlbum">Delete</button>
         <ul>
-            ${album.reviews.map(reviev => {
+    
+        ${album.reviews.map(reviev => {
                 return `
                     <li>
                         ${reviev.reviewContent}
@@ -29,22 +32,26 @@ function DisplayAlbum(album){
             }).join('')}
         </ul>
     `
-
+ //  SetupEditButton();
 }
 
 export function EditAlbum(album){
+    console.log("gggggggggggggggggggggggggg");
     return `
         <input type="hidden" value="${album.id}" id="Album_id" />
         <input type="text" value="${album.title}" id="Album_name" />
         <h4>Todo Name</h4>
         ${album.reviews.map(reviev => {
-            return `
-                <input type="text" value="${reviev.reviewContent}" name="Album_todos" id="${reviev.id}" />
+          return `
+               <input type="text" value="${reviev.reviewContent}" name="Album_todos" id="${reviev.name}" />
             `
         }).join('')}
         <button id="btnSaveAlbum">Update</button>
     `;
 }
+
+
+
 
 export function SetupSaveButton(){
     let btnSave = document.getElementById("btnSaveAlbum");
@@ -57,7 +64,8 @@ export function SetupSaveButton(){
             Name: AlbumName
         }
 
-        apiActions.putRequest(CONSTANTS.albumURL, AlbumId, editAlbum, data => {
+
+        apiActions.putRequest(CONSTANTS.albumURL, albumId, editAlbum, data => {
             CONSTANTS.Content.innerHTML = DisplayAlbum(data);
             SetupEditButton();
         });
@@ -79,10 +87,17 @@ export function SetupSaveButton(){
     });
 }
 
-export function SetupEditButton(){
-    let btnEdit = document.getElementById("btnEditAlbum");
+ export function SetupEditButton(){
+  
+     let btnEdit = document.getElementById("btnEditAlbum");
     btnEdit.addEventListener("click", function(){
-        CONSTANTS.Content.innerHTML = EditAlbum(Album);
-        SetupSaveButton();
+    
+         console.log("edit botton click"); 
+
+
+        
+         CONSTANTS.Content.innerHTML =EditAlbum(album);
+     console.log("edit botton click"); 
+       SetupSaveButton();
     });
-}
+ }
