@@ -58,8 +58,14 @@ function SetupArtists(){
      "click", () => {
      apiActions.getRequest(CONSTANTS.artistURL, data => {
       CONSTANTS.Content.innerHTML = Artists.DisplayArtists(data);
-     })}
-   );
+    
+   Artists.AddArtist();
+   
+   })}
+  
+   
+  
+     );
       
    }    
 
