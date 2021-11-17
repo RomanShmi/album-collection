@@ -5,17 +5,33 @@ import album from "./album";
 
 export default {
   DisplayAlbums,
+  AddAlbum,
   SetupDeleteButton,
   SetupEditButton,
   SetupDetailButton
 };
 
-export function DisplayAlbums(data) {
-  return `<ol>
-    <button id="btnAddbutton">add album</button> 
+export function DisplayAlbums(data, artists) {
+  return `
+      <section class='addOwner'>
+    <label><strong>Name:</strong></label>
+    <input type='text' id='AlbumName' placeholder='Enter a name for our owner' />
+   
+    <div class="custom-select" style="width:200px;">
+    <select id="ArtistId">
+    ${artists.map(artist => {
+        return `
+                <option  value=${artist.id}>${artist.name}</option>
+        `
+    })}
+    </select>
+  </div>
+      <button id='btnAddAlbum'>Add Album</button>
+</section>
+  <ol>
+    
     ${data
       .map((album) => {
-        console.log(album);
         return `<li>
             <h3>${album.title}</h3>
             <button name="btnEditAlbum" id = "albumEdit${
@@ -35,6 +51,24 @@ export function DisplayAlbums(data) {
       .join("")}
     </ol>`;
 }
+ 
+export function AddAlbum(){
+    
+       const AddNewAlbum = document.getElementById("btnAddAlbum");
+     
+ AddNewAlbum.addEventListener("click",function(){ console.log("Add album kick");
+
+const newAlbum ={
+    title: document.getElementById("AlbumName").value,
+    artistId: document.getElementById("ArtistId").value
+
+}
+apiActions.postRequest(CONSTANTS.albumURL, newAlbum, data => {
+    CONSTANTS.Title.innerText = "Album Details";
+    CONSTANTS.Content.innerHTML = album.DisplayAlbum(data);
+});
+
+});}
 
 export function SetupEditButton() {
   let albumEditBtn = document.querySelectorAll(".album_edit");
@@ -83,3 +117,4 @@ export function SetupDetailButton() {
     })
   })
 }
+

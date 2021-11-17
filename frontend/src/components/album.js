@@ -5,10 +5,7 @@ import apiActions from "../api/api-actions";
 
 export default {
     DisplayAlbum,
-    EditAlbum,
-    SetupSaveButton
-
-}
+   }
 
 function DisplayAlbum(album){
    // Album = album;
@@ -54,6 +51,7 @@ function DisplayAlbum(album){
  //  SetupEditButton();
 }
 
+
 export function EditAlbum(album){
     console.log("edit album page");
     return `
@@ -80,7 +78,7 @@ export function SetupSaveButton(id){
         });
       });
 }
-
+// not used
 //  export function SetupEditButton(){
   
 //      let btnEdit = document.getElementById("btnEditAlbum");
@@ -90,3 +88,4 @@ export function SetupSaveButton(id){
 //          SetupSaveButton();
 //     });
 //  }
+

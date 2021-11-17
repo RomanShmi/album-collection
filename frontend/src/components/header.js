@@ -6,6 +6,8 @@ import * as CONSTANTS from "../components/constants";
 import apiActions from "../api/api-actions";
 import Album from"../components/album";
 
+var ArtistList;
+
 export default {
    SetupNavBar,
    SetupHeaderEventListeners
@@ -24,15 +26,13 @@ export function SetupNavBar(){
 }
 
 export function SetupHeaderEventListeners(){
+   GetAllArtists();
    SetupArtists();
     SetupSongs();
     SetupAlbums();
    SetupReviews();
     SetupHome();
-
-  
-
-
+    
 }
 
 function SetupHome(){
@@ -43,7 +43,14 @@ function SetupHome(){
    });
 }
 
-
+function GetAllArtists(){
+   
+   apiActions.getRequest(CONSTANTS.artistURL, data => {
+      
+      console.log("list of artists" + data);
+      ArtistList = data;
+   });
+}
 
 function SetupArtists(){
    const buttonArtist = document.getElementById("navArtists");
@@ -51,9 +58,6 @@ function SetupArtists(){
      "click", () => {
      apiActions.getRequest(CONSTANTS.artistURL, data => {
       CONSTANTS.Content.innerHTML = Artists.DisplayArtists(data);
-     
-     // Album.SetupSaveButton();
-
      })}
    );
       
@@ -80,17 +84,11 @@ function SetupArtists(){
       buttonAlbums.addEventListener(
         "click", () => {
         apiActions.getRequest(CONSTANTS.albumURL, data => {
-         CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data);
+         CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data, ArtistList);
+          Albums.AddAlbum();
          Albums.SetupDeleteButton();
          Albums.SetupEditButton();
         Albums.SetupDetailButton();
-        
-        
-        
-        
-        
-        
-         // Artists.SetupAddArtist();
         })}
       );
  }
@@ -108,6 +106,3 @@ function SetupArtists(){
  }
 
 
-// function SetupHome(){
-
-// };
