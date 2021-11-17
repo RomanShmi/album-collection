@@ -1,5 +1,6 @@
 export default {
   getRequest,
+  getSingleRequest,
   putRequest,
   postRequest,
   deleteRequest,
@@ -16,7 +17,15 @@ function getRequest(location, callback) {
       })
       .catch(err => console.log(err));
 }
-
+function getSingleRequest(location, id, callback) {
+    fetch(location + id)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        callback(data);
+      })
+      .catch((err) => console.log(err));
+}
 //requestBody come from frontend form
 function postRequest(location, requestBody, callback) {
     fetch(`${location}`, {
@@ -40,7 +49,7 @@ function putRequest(location, id, requestBody, callback) {
         headers: {
             "content-type" : "application/json"
         },
-        body: Json.stringify(requestBody)
+        body: JSON.stringify(requestBody)
     })
     .then(response => response.json())
     .then(data => {
