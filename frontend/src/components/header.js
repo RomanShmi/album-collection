@@ -51,7 +51,7 @@ function SetupArtists(){
      "click", () => {
      apiActions.getRequest(CONSTANTS.artistURL, data => {
       CONSTANTS.Content.innerHTML = Artists.DisplayArtists(data);
-     //Album.EditAlbum();
+     
      // Album.SetupSaveButton();
 
      })}
@@ -81,8 +81,9 @@ function SetupArtists(){
         "click", () => {
         apiActions.getRequest(CONSTANTS.albumURL, data => {
          CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data);
+         Albums.SetupDeleteButton();
          Albums.SetupEditButton();
-        
+        Albums.SetupDetailButton();
         
         
         

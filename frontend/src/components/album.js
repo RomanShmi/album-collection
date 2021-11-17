@@ -1,7 +1,7 @@
 import * as CONSTANTS from "./constants";
 import apiActions from "../api/api-actions";
 
-var Album = null;
+// var Album = null;
 
 export default {
     DisplayAlbum,
@@ -11,93 +11,82 @@ export default {
 }
 
 function DisplayAlbum(album){
-    console.log("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
    // Album = album;
     if(album.reviews == null){
         album.reviews = [];
     }
- 
+    if(album.songs == null){
+        album.songs = [];
+    }
+    
     return `
         <h3>${album.title}</h3>
-        <button id="btnEditAlbum">Edit</button>
-        <button id="btnDeleteAlbum">Delete</button>
+         <button name="btnEditAlbum" id = "albumEdit${
+           album.id
+         }" class ="album_edit">Edit</button>
+
+        <button name="btnDeleteAlbum" id = "albumDelete${
+          album.id
+        }" class = "album_delete">Delete</button>
+        <h4>Songs</h4>
         <ul>
     
-        ${album.reviews.map(reviev => {
-                return `
+            ${album.songs.map((song) => {
+              return `
                     <li>
-                        ${reviev.reviewContent}
+                        ${song.title}
                     </li>
-                `
-            }).join('')}
+                `;
+            }).join("")} </ul>
+            <h4>Reviews</h4>
+          <ul>
+        ${album.reviews
+          .map((review) => {
+            return `
+                    <li>
+                        ${review.reviewContent}
+                    </li>
+                `;
+          })
+          .join("")}
         </ul>
-    `
+    `;
  //  SetupEditButton();
 }
 
 export function EditAlbum(album){
-    console.log("gggggggggggggggggggggggggg");
+    console.log("edit album page");
     return `
-        <input type="hidden" value="${album.id}" id="Album_id" />
-        <input type="text" value="${album.title}" id="Album_name" />
-        <h4>Todo Name</h4>
-        ${album.reviews.map(reviev => {
-          return `
-               <input type="text" value="${reviev.reviewContent}" name="Album_todos" id="${reviev.name}" />
-            `
-        }).join('')}
-        <button id="btnSaveAlbum">Update</button>
+            <h3>${album.title}</h3>
+            <input type="text" id = "albumArtistId${album.id}" style ="display:none" value = ${album.artistId}>
+            <input type="text" name="Title" value="" id = "albumEditTitleInput${album.id}" placeholder = "enter a new title">
+            <button id = "editSubmit${album.id}">Save</button>
     `;
 }
 
 
 
 
-export function SetupSaveButton(){
-    let btnSave = document.getElementById("btnSaveAlbum");
-    btnSave.addEventListener("click", function(){
-        let AlbumId = document.getElementById("Album_id").value;
-        let AlbumName = document.getElementById("Album_name").value;
-
-        const editAlbum = {
-            Id: AlbumId,
-            Name: AlbumName
-        }
-
-
-        apiActions.putRequest(CONSTANTS.albumURL, albumId, editAlbum, data => {
-            CONSTANTS.Content.innerHTML = DisplayAlbum(data);
-            SetupEditButton();
+export function SetupSaveButton(id){
+      let titleInput = document.getElementById(`albumEditTitleInput${id}`);
+      let submitBtn = document.getElementById(`editSubmit${id}`);
+      let artistId = document.getElementById(`albumArtistId${id}`).value;
+      submitBtn.addEventListener("click", () => {
+          console.log("clicked");
+        let formBody = { Id: id, Title: titleInput.value, ArtistId: artistId };
+        console.log(formBody);
+        apiActions.putRequest(CONSTANTS.albumURL, id, formBody, (data) => {
+          CONSTANTS.Content.innerHTML = DisplayAlbum(data);
         });
-
-        // fetch('https://localhost:44326/api/Albums/' + AlbumId, {
-        //     method: "PUT",
-        //     headers: {
-        //         "Content-Type" : "application/json"
-        //     },
-        //     body: JSON.stringify(editAlbum)
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     CONSTANTS.Content.innerHTML = DisplayAlbum(data);
-        //     SetupEditButton();
-        // });
-
-
-    });
+      });
 }
 
- export function SetupEditButton(){
+//  export function SetupEditButton(){
   
-     let btnEdit = document.getElementById("btnEditAlbum");
-    btnEdit.addEventListener("click", function(){
-    
-         console.log("edit botton click"); 
-
-
-        
-         CONSTANTS.Content.innerHTML =EditAlbum(album);
-     console.log("edit botton click"); 
-       SetupSaveButton();
-    });
- }
+//      let btnEdit = document.getElementById("btnEditAlbum");
+//     btnEdit.addEventListener("click", function(){
+//         console.log("edit button click"); 
+//          CONSTANTS.Content.innerHTML = EditAlbum(album);
+//          SetupSaveButton();
+//     });
+//  }
