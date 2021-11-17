@@ -40,11 +40,11 @@ namespace album_collection.Controllers
 
         // POST api/<ArtistController>
         [HttpPost]
-        public ActionResult<Artist> Post([FromBody] Artist artist)
+        public ActionResult<IEnumerable<Artist>> Post([FromBody] Artist artist)
         {
             _db.Artists.Add(artist);
             _db.SaveChanges();
-            return artist;
+            return _db.Artists.ToList();
         }
 
         // PUT api/<ArtistController>/5

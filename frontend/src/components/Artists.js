@@ -37,10 +37,11 @@ const newArtist ={
  
 }
 
-apiActions.postRequest(CONSTANTS.artistURL, newArtist, data => {
-    console.log(data);
- CONSTANTS.Title.innerText = `Artist     ${data.name}    is added`;
- //CONSTANTS.Content.innerHTML =DisplayArtist(data);
+apiActions.postRequest(CONSTANTS.artistURL, newArtist, artists => {
+    console.log(artists);
+    // artists.length()
+ CONSTANTS.Title.innerText = `Artist    is added`;
+ CONSTANTS.Content.innerHTML =DisplayArtists(artists);
  //Owner.SetupEditButton();
 });
 

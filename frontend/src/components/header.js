@@ -5,8 +5,8 @@ import Reviews from "../components/Reviews";
 import * as CONSTANTS from "../components/constants";
 import apiActions from "../api/api-actions";
 import Album from"../components/album";
+import artist from "./artist";
 
-var ArtistList;
 
 export default {
    SetupNavBar,
@@ -26,7 +26,6 @@ export function SetupNavBar(){
 }
 
 export function SetupHeaderEventListeners(){
-   GetAllArtists();
    SetupArtists();
     SetupSongs();
     SetupAlbums();
@@ -43,14 +42,7 @@ function SetupHome(){
    });
 }
 
-function GetAllArtists(){
-   
-   apiActions.getRequest(CONSTANTS.artistURL, data => {
-      
-      console.log("list of artists" + data);
-      ArtistList = data;
-   });
-}
+
 
 function SetupArtists(){
    const buttonArtist = document.getElementById("navArtists");
@@ -90,7 +82,8 @@ function SetupArtists(){
       buttonAlbums.addEventListener(
         "click", () => {
         apiActions.getRequest(CONSTANTS.albumURL, data => {
-         CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data, ArtistList);
+         CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data);
+         CONSTANTS.GetAllArtists();
           Albums.AddAlbum();
          Albums.SetupDeleteButton();
          Albums.SetupEditButton();

@@ -69,7 +69,7 @@ namespace album_collection
                   new Review() { Id = 2, AlbumId = 2, Name = "Eli", ReviewContent = "4/5 :)" },
                     new Review() { Id = 3, AlbumId = 3, Name = "Dawna", ReviewContent = "FREE BRITNEY!!!!" },
                       new Review() { Id = 4, AlbumId = 4, Name = "Roman", ReviewContent = "Gr8 Album" },
-                        new Review() { Id = 4, AlbumId = 5, Name = "Jay", ReviewContent = "Best rapper ever!!!! 10/10 Recommend" }
+                        new Review() { Id = 5, AlbumId = 5, Name = "Jay", ReviewContent = "Best rapper ever!!!! 10/10 Recommend" }
                       );
          base.OnModelCreating(modelbuilder);
         }

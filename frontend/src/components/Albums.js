@@ -2,6 +2,7 @@ import * as CONSTANTS from "./constants";
 import apiActions from "../api/api-actions";
 import Album, { EditAlbum } from "./album";
 import album from "./album";
+import header from "./header";
 
 export default {
   DisplayAlbums,
@@ -11,7 +12,7 @@ export default {
   SetupDetailButton,
 };
 
-export function DisplayAlbums(data, artists) {
+export function DisplayAlbums(data) {
   return `
       <section class='addOwner'>
     <label><strong>Name:</strong></label>
@@ -19,11 +20,7 @@ export function DisplayAlbums(data, artists) {
    
     <div class="custom-select" style="width:200px;">
     <select id="ArtistId">
-    ${artists.map((artist) => {
-      return `
-                <option  value=${artist.id}>${artist.name}</option>
-        `;
-    })}
+
     </select>
   </div>
       <button id='btnAddAlbum'>Add Album</button>
@@ -80,6 +77,7 @@ export function SetupDeleteButton() {
       let currentId = button.id.replace("albumDelete", "");
       apiActions.deleteRequest(CONSTANTS.albumURL, currentId, (data) => {
         CONSTANTS.Content.innerHTML = DisplayAlbums(data);
+        CONSTANTS.GetAllArtists();
         SetupDeleteButton();
         SetupEditButton();
         SetupDetailButton();
