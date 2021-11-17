@@ -1,22 +1,19 @@
 import * as CONSTANTS from "./constants";
 import apiActions from "../api/api-actions";
-import Album from "./album";
+import Album, { EditAlbum } from "./album";
 import album from "./album";
 
 export default {
-    DisplayAlbums,
-    AddAlbum
-}
-
-
-
-
+  DisplayAlbums,
+  AddAlbum,
+  SetupDeleteButton,
+  SetupEditButton,
+  SetupDetailButton
+};
 
 export function DisplayAlbums(data, artists) {
-    console.log("show ablums with artists" +artists);
-    return `
-    
-    <section class='addOwner'>
+  return `
+      <section class='addOwner'>
     <label><strong>Name:</strong></label>
     <input type='text' id='AlbumName' placeholder='Enter a name for our owner' />
    
@@ -29,37 +26,32 @@ export function DisplayAlbums(data, artists) {
     })}
     </select>
   </div>
-   
-   
-   
-   
-    <button id='btnAddAlbum'>Add Album</button>
+      <button id='btnAddAlbum'>Add Album</button>
 </section>
+  <ol>
     
-    
-    <ol>
-   
-    ${data.map(album => {
+    ${data
+      .map((album) => {
         return `<li>
             <h3>${album.title}</h3>
-            <button id="btnEditAlbum">Edit</button>
-            <ul>
-        
-            ${album.reviews.map(reviev => {
-                    return `
-                        <li>
-                            ${reviev.reviewContent}
-                        </li>
-                    `
-                }).join('')}
-            </ul>
-        </li>`; 
-
-    }).join('')}
-    </ol>`
+            <button name="btnEditAlbum" id = "albumEdit${
+              album.id
+            }" class ="album_edit">Edit</button>
+            <input type="text" id = "albumsArtistId${
+              album.id
+            }" style ="display:none" value = ${album.artistId}>
+            <button name="btnDeleteAlbum" id = "albumDelete${
+              album.id
+            }" class = "album_delete">Delete</button>
+            <button name="btnDetailAlbum" id = "albumDetail${
+              album.id
+            }" class = "album_detail">detail</button>
+        </li>`;
+      })
+      .join("")}
+    </ol>`;
 }
  
-
 export function AddAlbum(){
     
        const AddNewAlbum = document.getElementById("btnAddAlbum");
@@ -74,44 +66,55 @@ const newAlbum ={
 apiActions.postRequest(CONSTANTS.albumURL, newAlbum, data => {
     CONSTANTS.Title.innerText = "Album Details";
     CONSTANTS.Content.innerHTML = album.DisplayAlbum(data);
-    //Owner.SetupEditButton();
 });
 
-
-
 });}
-       /*
-export function SetupAddOwner(){
-    const btnAddOwner = document.getElementById("btnAddOwner");
-    btnAddOwner.addEventListener("click", function (){
-        //console.log('add owner functionality goes here...');
-        const newOwner = {
-            Name: document.getElementById("ownerName").value
-        }
 
-        apiActions.postRequest(CONSTANTS.OwnerAPIURL, newOwner, data => {
-            CONSTANTS.Title.innerText = "Owner Details";
-            CONSTANTS.Content.innerHTML = Owner.DisplayOwner(data);
-            Owner.SetupEditButton();
-        });
-
-        // fetch('https://localhost:44326/api/owners', {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type" : "application/json"
-        //     },
-        //     body: JSON.stringify(newOwner)
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     CONSTANTS.Title.innerText = "Owner Details";
-        //     CONSTANTS.Content.innerHTML = Owner.DisplayOwner(data);
-        //     Owner.SetupEditButton();
-        // })
-        // .catch(err => console.log(err));
-
-    });
+export function SetupEditButton() {
+  let albumEditBtn = document.querySelectorAll(".album_edit");
+  albumEditBtn.forEach((button) => {
+    
+    button.addEventListener("click", () => {
+      let currentId = button.id.replace("albumEdit", "");
+            apiActions.getSingleRequest(
+              CONSTANTS.albumURL,
+              currentId,
+              (data) => {
+                CONSTANTS.Content.innerHTML = album.EditAlbum(data);
+                album.SetupSaveButton();
+              }
+            );
+     });
+  });
 }
 
+export function SetupDeleteButton() {
+  let albumDeleteBtn = document.querySelectorAll(".album_delete");
+  albumDeleteBtn.forEach((button) => {
+    button.addEventListener("click", () => {
+      let currentId = button.id.replace("albumDelete", "");
+      apiActions.deleteRequest(CONSTANTS.albumURL, currentId, (data) => {
+        CONSTANTS.Content.innerHTML = DisplayAlbums(data);
+        SetupDeleteButton();
+        SetupEditButton();
+        SetupDetailButton();
+      });
+    });
+  });
+}
 
-       */
+export function SetupDetailButton() {
+  let albumDetailBtn = document.querySelectorAll(".album_detail");
+  albumDetailBtn.forEach((button) => {
+    button.addEventListener("click", () => {
+      console.log("clicked");
+      let currentId = button.id.replace("albumDetail", "");
+      apiActions.getSingleRequest(CONSTANTS.albumURL, currentId, data => {
+        CONSTANTS.Content.innerHTML = album.DisplayAlbum(data);
+        SetupDeleteButton();
+        SetupEditButton();
+      });
+    })
+  })
+}
+

@@ -52,14 +52,12 @@ function GetAllArtists(){
    });
 }
 
-
 function SetupArtists(){
    const buttonArtist = document.getElementById("navArtists");
    buttonArtist.addEventListener(
      "click", () => {
      apiActions.getRequest(CONSTANTS.artistURL, data => {
       CONSTANTS.Content.innerHTML = Artists.DisplayArtists(data);
-    
      })}
    );
       
@@ -86,13 +84,11 @@ function SetupArtists(){
       buttonAlbums.addEventListener(
         "click", () => {
         apiActions.getRequest(CONSTANTS.albumURL, data => {
-
          CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data, ArtistList);
-      
-      
           Albums.AddAlbum();
-     
-
+         Albums.SetupDeleteButton();
+         Albums.SetupEditButton();
+        Albums.SetupDetailButton();
         })}
       );
  }
