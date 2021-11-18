@@ -16,6 +16,7 @@ function DisplayArtist(artist){
     }
        
     return `
+        <div class="details">
         <h3>${artist.name}</h3>
         <button name="btnEditAlbum" id = "artistEdit${
           artist.id
@@ -36,6 +37,7 @@ function DisplayArtist(artist){
               })
               .join("")}
         </ul>
+        </div>
     `;
 }
  

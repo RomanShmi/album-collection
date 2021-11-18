@@ -18,8 +18,8 @@ export function SetupNavBar(){
    <ul class="nav">
       <li id="navHome">Home</li>
       <li id="navArtists">Artists</li>
-      <li id="navSongs">Songs</li>
       <li id="navAlbums">Albums</li>
+      <li id="navSongs">Songs</li>
       <li id="navReviews">Reviews</li>
    </ul>
    `;

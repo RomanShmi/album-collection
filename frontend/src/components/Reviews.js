@@ -6,9 +6,15 @@ export default {
 }
 
 export function DisplayReviews(data) {
-    return `<ol>
+    return `
+    <ul>
     ${data.map(review => {
-        return `<li>${review.reviewContent}________${review.name}</li>`;
+        return `
+        <div class="reviewsList">
+        <li>${review.reviewContent} ___${review.name}</li>
+        </div>
+        `;
     }).join('')}
-    </ol>`
+    </ul>
+    `
 }

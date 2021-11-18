@@ -54,6 +54,8 @@ export function AddAlbum() {
     apiActions.postRequest(CONSTANTS.albumURL, newAlbum, (data) => {
       CONSTANTS.Title.innerText = "Album Details";
       CONSTANTS.Content.innerHTML = album.DisplayAlbum(data);
+      SetupEditButton();
+      SetupDeleteButton();
     });
   });
 }

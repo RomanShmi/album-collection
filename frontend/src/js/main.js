@@ -1,5 +1,6 @@
 import header from "../components/header";
 import * as CONSTANTS from "../components/constants";
+import footer from "../components/footer";
 
 const headerElement = document.getElementById("navbar");
 
@@ -20,6 +21,5 @@ function SetupHome(){
 }
 
 function SetupFooter(){
-   // footerElement.innerHTML = F.SetupNavBar();
-   // F.SetupFooterEventListeners();
+   footerElement.innerHTML = footer.SetupFooter();
 }
