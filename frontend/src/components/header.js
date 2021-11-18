@@ -67,7 +67,9 @@ function SetupArtists(){
       CONSTANTS.Content.innerHTML = Artists.DisplayArtists(data);
     
    Artists.AddArtist();
-   
+           Artists.SetupDeleteButton();
+         Artists.SetupEditButton();
+         Artists.SetupDetailButton();
    })}
   
    

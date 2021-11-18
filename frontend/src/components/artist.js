@@ -1,44 +1,50 @@
 import * as CONSTANTS from "./constants";
 import apiActions from "../api/api-actions";
- 
-var Artist = null;
+import Artists from "./Artists";
+
  
 export default {
     DisplayArtist,
     EditArtist,
-    SetupEditButton
+    SetupSaveButton,
 }
  
 function DisplayArtist(artist){
     console.log(artist);
-    Artist = artist;
+    if (artist.albums == null) {
+        artist.albums = [];
+    }
        
     return `
-        <h3>${artist.title}</h3>
-        <button id="btnEditArtist">Edit</button>
+        <h3>${artist.name}</h3>
+        <button name="btnEditAlbum" id = "artistEdit${
+          artist.id
+        }" class ="artist_edit">Edit Artist</button>
+
+        <button name="btnDeleteAlbum" id = "artistDelete${
+          artist.id
+        }" class = "artist_delete">Delete Artist</button>
+        <h4>Albums</h4>
         <ul>
-            ${artist.albums.map(album => {
+            ${artist.albums
+              .map((album) => {
                 return `
                     <li>
                         ${album.title}
                     </li>
-                `
-            }).join('')}
+                `;
+              })
+              .join("")}
         </ul>
-    `
+    `;
 }
  
 export function EditArtist(artist){
     return `
         <input type="hidden" value="${artist.id}" id="Artist_id" />
+        <label>Change artist name</label>
         <input type="text" value="${artist.name}" id="Artist_name" />
-        <h4>Albums</h4>
-        ${artist.albums.map(album => {
-            return `
-                <input type="text" value="${album.title}" name="Album_title" id="${album.id}" />
-            `
-        }).join('')}
-        <button id="btnSaveArtist">Update</button>
+        <button id = "btnSaveArtist">Save</button>
     `;
 }
  
@@ -54,23 +60,11 @@ export function SetupSaveButton(){
         }
  
         apiActions.putRequest(CONSTANTS.artistURL, ArtistId, editArtist, data => {
+            console.log(data);
             CONSTANTS.Content.innerHTML = DisplayArtist(data);
-            SetupEditButton();
+            Artists.SetupEditButton();
+            Artists.SetupDeleteButton();
         });
- 
-        // fetch('https://localhost:44326/api/Artist/' + ArtistId, {
-        //     method: "PUT",
-        //     headers: {
-        //         "Content-Type" : "application/json"
-        //     },
-        //     body: JSON.stringify(editArtist)
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     CONSTANTS.Content.innerHTML = DisplayArtist(data);
-        //     SetupEditButton();
-        // });
- 
     });
 }
  
