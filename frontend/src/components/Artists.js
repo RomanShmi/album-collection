@@ -15,13 +15,14 @@ export function DisplayArtists(data) {
  
     return `
  
- 
+    <section class="addArtist">
     <label><strong>Name:</strong></label>
     <input type='text' id='ArtistName' placeholder='Enter a name ' />
  
     <button id='btnAddArtist'>Add Artist</button>
+    </section>
     <ol>
-    ${data.map(artist => {
+    ${data.map(artist => 
         return `<li><h3>${artist.name}</h3>
             <button name="btnEditArtist" id = "artistEdit${artist.id}" class ="artist_edit">Edit</button>
             <input type="text" id = "artistsId${artist.id}" style ="display:none" value = ${artist.id}>
