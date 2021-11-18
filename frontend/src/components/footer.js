@@ -3,11 +3,17 @@ import * as CONSTANTS from "../components/constants";
 
 export default {
    SetupFooter,
-   SetupFooterEventListeners
 }
 
 export function SetupFooter(){
    return`
-   <p>Footer Statement</p>
+   <div class="footer">
+   <ul>
+            <li>Dawn Natale -- </li>
+            <li>Eli Heeren --</li>
+            <li>Jaxxon Crowe --</li>
+            <li>Jay Huang --</li>
+            <li>Roman Shmigelskyi</li>
+          </ul></div>
    `;
 }

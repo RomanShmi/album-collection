@@ -22,8 +22,8 @@ export function DisplayArtists(data) {
     <button id='btnAddArtist'>Add Artist</button>
     </section>
     <ol>
-    ${data.map(artist => 
-        return `<li><h3>${artist.name}</h3>
+    ${data.map(artist => {
+        return `<li class="artistList"><h3>${artist.name}</h3>
             <button name="btnEditArtist" id = "artistEdit${artist.id}" class ="artist_edit">Edit</button>
             <input type="text" id = "artistsId${artist.id}" style ="display:none" value = ${artist.id}>
             <button name="btnDeleteArtist" id = "artistDelete${artist.id}" class = "artist_delete">Delete</button>

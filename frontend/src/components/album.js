@@ -1,5 +1,6 @@
 import * as CONSTANTS from "./constants";
 import apiActions from "../api/api-actions";
+import Artists from "./Artists";
 
 // var Album = null;
 
@@ -19,6 +20,7 @@ function DisplayAlbum(album) {
   }
 
   return `
+      <div class="details">
         <h3>${album.title}</h3>
          <button name="btnEditAlbum" id = "albumEdit${
            album.id
@@ -51,6 +53,7 @@ function DisplayAlbum(album) {
           })
           .join("")}
         </ul>
+      </div>
     `;
 }
 
@@ -74,6 +77,8 @@ export function SetupSaveButton(id) {
     console.log(formBody);
     apiActions.putRequest(CONSTANTS.albumURL, id, formBody, (data) => {
       CONSTANTS.Content.innerHTML = DisplayAlbum(data);
+      Artists.SetupEditButton();
+      Artists.SetupDeleteButton();
     });
   });
 }
