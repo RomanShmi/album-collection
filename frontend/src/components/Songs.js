@@ -8,7 +8,7 @@ export default {
 export function DisplaySongs(data) {
     return `<ol>
     ${data.map(song => {
-        return `<li>${song.title}</li>`;
+        return `<li class="songsList">${song.title}</li>`;
     }).join('')}
     </ol>`
 }

@@ -15,12 +15,13 @@ export default {
 export function DisplayAlbums(data) {
   return `
       <section class='addOwner'>
+      <h3>Add a New Album</h3>
     <label><strong>Name:</strong></label>
-    <input type='text' id='AlbumName' placeholder='Enter a name for the new album' />
-   
-    <div class="custom-select" style="width:200px;">
+    <input type='text' id='AlbumName' placeholder='New Album Name' />
+    <div class="custom-select">
+    <label><strong>Artist:</strong></label>
     <select id="ArtistId">
-
+    <option selected disabled>---Select Artist---</option>
     </select>
   </div>
       <button id='btnAddAlbum'>Add Album</button>
@@ -28,12 +29,12 @@ export function DisplayAlbums(data) {
   <ol>
     ${data
       .map((album) => {
-        return `<li>
+        return `<li class="albumList">
             <h3>${album.title}</h3>
             <button name="btnEditAlbum" id = "albumEdit${album.id}" class ="album_edit">Edit</button>
             <input type="text" id = "albumsArtistId${album.id}" style ="display:none" value = ${album.artistId}>
             <button name="btnDeleteAlbum" id = "albumDelete${album.id}" class = "album_delete">Delete</button>
-            <button name="btnDetailAlbum" id = "albumDetail${album.id}" class = "album_detail">detail</button>
+            <button name="btnDetailAlbum" id = "albumDetail${album.id}" class = "album_detail">Details</button>
         </li>`;
       })
       .join("")}

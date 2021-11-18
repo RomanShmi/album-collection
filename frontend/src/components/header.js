@@ -15,7 +15,7 @@ export default {
 
 export function SetupNavBar(){
    return`
-   <ul>
+   <ul class="nav">
       <li id="navHome">Home</li>
       <li id="navArtists">Artists</li>
       <li id="navSongs">Songs</li>
@@ -37,8 +37,22 @@ export function SetupHeaderEventListeners(){
 function SetupHome(){
    const btnHome = document.getElementById("navHome");
    btnHome.addEventListener("click", function(){
-       CONSTANTS.Title.innerText = "Home";
-       CONSTANTS.Content.innerHTML = "<p>Welcome back home...</p>";
+       CONSTANTS.Title.innerText = "Fink Ployd's Music Collection & Review";
+       CONSTANTS.Content.innerHTML = `
+    <div class="content" id="page content">
+        <div id="wrap">
+            <div id="album">
+                <div id="cover">
+                </div>
+                <div id="vinyl">
+                    <div id="print">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    `;
    });
 }
 
@@ -49,6 +63,7 @@ function SetupArtists(){
    buttonArtist.addEventListener(
      "click", () => {
      apiActions.getRequest(CONSTANTS.artistURL, data => {
+        CONSTANTS.Title.innerText = "Artists";
       CONSTANTS.Content.innerHTML = Artists.DisplayArtists(data);
     
    Artists.AddArtist();
@@ -69,6 +84,7 @@ function SetupArtists(){
       buttonSongs.addEventListener(
         "click", () => {
         apiActions.getRequest(CONSTANTS.songURL, data => {
+         CONSTANTS.Title.innerText = "Songs";
          CONSTANTS.Content.innerHTML = Songs.DisplaySongs(data);
          // Artists.SetupAddArtist();
         })}
@@ -82,6 +98,7 @@ function SetupArtists(){
       buttonAlbums.addEventListener(
         "click", () => {
         apiActions.getRequest(CONSTANTS.albumURL, data => {
+         CONSTANTS.Title.innerText = "Albums";
          CONSTANTS.Content.innerHTML = Albums.DisplayAlbums(data);
          CONSTANTS.GetAllArtists();
           Albums.AddAlbum();
@@ -98,6 +115,7 @@ function SetupArtists(){
       buttonReviews.addEventListener(
         "click", () => {
         apiActions.getRequest(CONSTANTS.reviewURL, data => {
+         CONSTANTS.Title.innerText = "Reviews";
          CONSTANTS.Content.innerHTML = Reviews.DisplayReviews(data);
          // Artists.SetupAddArtist();
         })}

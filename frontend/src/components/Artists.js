@@ -11,14 +11,15 @@ export function DisplayArtists(data) {
  
     return `
  
- 
+    <section class="addArtist">
     <label><strong>Name:</strong></label>
     <input type='text' id='ArtistName' placeholder='Enter a name ' />
  
     <button id='btnAddArtist'>Add Artist</button>
+    </section>
     <ol>
     ${data.map(artist => {
-        return `<li>${artist.name}
+        return `<li class="artistList">${artist.name}
         </li>`;
     }).join('')}
     </ol>`
